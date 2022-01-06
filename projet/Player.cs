@@ -14,9 +14,15 @@ namespace projet
         public bool loser = false;
         public int nb_jail=0;
 
+        public IState pState;
+
+
+
+        public IState PState { get => pState; set => pState = value; }
+
         public string Name { get => name; set => name=value; }
 
-        public string Position { get; set; }
+        public int Position { get; set; }
 
         public bool Jail { get; set; }
 
@@ -28,11 +34,13 @@ namespace projet
         {
             this.name = name;
             this.pos = 0;
-            this.jail = false;
+            this.pState = new NotInJail();
             this.loser = false;
         }
 
-        public int[] Dice()
+
+        /*
+        public int[] RollDices()
         {
             Random random = new Random();
             int dice1 = random.Next(1, 7);
@@ -60,7 +68,7 @@ namespace projet
             if (this.pos+tot[2]<40) { this.pos += tot[2]; }
             else { this.pos= this.pos + tot[2] - 40; }
         }
-
+        */
         public string toString()
         {
             return "Player: " + this.name + "\nPosition: " + this.pos;

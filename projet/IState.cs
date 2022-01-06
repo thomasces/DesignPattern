@@ -8,6 +8,10 @@ namespace projet
 {
     interface IState
     {
-        public void "hello";
+        int[] RollDices();
+
+        void Move(int[] tot);
+
+        void GoToJail();
     }
 }

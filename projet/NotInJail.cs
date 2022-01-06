@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace projet
 {
-    class InJail : IState
+    class NotInJail : IState
     {
-        private int nb_jail=0;
+        private Player p;
 
         public int[] RollDices()
         {
@@ -28,12 +28,13 @@ namespace projet
 
         public void Move(int[] tot)
         {
-            Console.WriteLine("You can't move! You are in jail!");
+            if (p.Position + tot[2] < 40) { p.Position += tot[2]; }
+            else { p.Position = p.Position + tot[2] - 40; }
         }
 
         public void GoToJail()
         {
-            Console.WriteLine("You are already in jail!");
+            
         }
     }
 }
