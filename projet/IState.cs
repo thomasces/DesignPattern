@@ -8,5 +8,6 @@ namespace projet
 {
     interface IState
     {
+        public void "hello";
     }
 }

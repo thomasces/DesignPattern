@@ -8,5 +8,9 @@ namespace projet
 {
     class Context
     {
+        public Context()
+        {
+
+        }
     }
 }

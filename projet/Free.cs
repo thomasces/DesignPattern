@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace projet
 {
-    class Free
+    class Free : IState
     {
     }
 }
