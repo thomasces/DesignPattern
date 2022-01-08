@@ -8,7 +8,13 @@ namespace projet
 {
     class InJail : IState
     {
-        private int nb_jail=0;
+        private Player p;
+        private int timer = 1;
+
+        public InJail(Player p)
+        {
+            this.p = p;
+        }
 
         public int[] RollDices()
         {
@@ -34,6 +40,22 @@ namespace projet
         public void GoToJail()
         {
             Console.WriteLine("You are already in jail!");
+        }
+
+        public void DoubleCheck(int[] dices)
+        {
+            if (dices[0] == dices[1]) 
+            {
+                Console.WriteLine("But you made a double, Congratulation !");
+                Console.WriteLine("You are now free!");
+                p.PState=new NotInJail(p);
+                p.pState.Move(dices);
+            }
+        }
+
+        public void DisplayPosition()
+        {
+            Console.WriteLine("You are in Jail!");
         }
     }
 }

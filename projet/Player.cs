@@ -34,7 +34,7 @@ namespace projet
         {
             this.name = name;
             this.pos = 0;
-            this.pState = new NotInJail();
+            this.pState = new NotInJail(this);
             this.loser = false;
         }
 

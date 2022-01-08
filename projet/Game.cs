@@ -10,8 +10,9 @@ namespace projet
     {
         public List<Player> players = new List<Player>(); // who is playing
         public Board board_game = new Board();
-        public int rounds; // number of rounds played
         public Player winner;
+        public Player current;
+        public int compt;
 
         public Game() { }
 
@@ -57,13 +58,13 @@ namespace projet
 
         public void Start()
         {
-            int compt = 0;
+            compt = 0;
             Console.Clear();
             Console.WriteLine("The game is starting!");
             while (!IsWinner())
             {
                 Console.Clear();
-                rounds++;
+                /*
                 while (players[compt].loser)
                 {
                     if (compt == players.Count - 1)
@@ -74,16 +75,32 @@ namespace projet
                     {
                         compt++;
                     }
-                }
-                Player current = players[compt];
+                }*/
+                current = players[compt];
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine("\nPlayer " + current.Name + ":");
                 Console.ForegroundColor = ConsoleColor.White;
-                if(current.jail==true)
+
+
+                Console.WriteLine("\nPress any key to roll the dices !\n");
+                Console.ReadKey(true);
+                int[] dices=current.pState.RollDices();
+
+                current.pState.Move(dices);
+                current.pState.DisplayPosition();
+                Console.ReadKey(true);
+
+
+                current.pState.DoubleCheck(dices);
+                DisplayMenu(current,true);
+
+
+                /*
+                if (current.PState is InJail)
                 {
                     Console.WriteLine("\nPress any key to roll the dices !\n");
                     Console.ReadKey(true);
-                    int[] dices2 = current.Dice();
+                    int[] dices2 = current.PState.RollDices();
                     Console.ForegroundColor = ConsoleColor.Green;
 
 
@@ -158,33 +175,32 @@ namespace projet
                         compt++;
                     }
                 }
-            }
-            Console.WriteLine("Gagnant :" + winner.Name);
+                */
+            }            
             Console.ReadKey(true);
         }
 
-        public void DisplayMenu(Player player, int compt, bool pos)
+        public void DisplayMenu(Player player, bool pos)
         {
             Console.Clear();
             if (pos)
             {
-                DisplayPosition(player, compt);
+                player.pState.DisplayPosition();
             }
             int resp = 0;
             Console.WriteLine("\nPlease Make a Selection :\n");
             Console.WriteLine("0 : Game Status");
             Console.WriteLine("1 : Finish Turn");
             Console.WriteLine("2 : Your DashBoard");
-            Console.WriteLine("3 : Give Up");
-            Console.WriteLine("4 : Quit Game");
-            Console.Write("(1-4)>");
+            Console.WriteLine("3 : Quit Game");
+            Console.Write("(1-3)>");
             try
             {
                 resp = int.Parse(Console.ReadLine());
             }
             catch (FormatException e)
             {
-                this.DisplayMenu(player, compt, true);
+                this.DisplayMenu(player, true);
             }
 
             switch (resp)
@@ -197,28 +213,35 @@ namespace projet
                     }
                     Console.ReadKey();
                     Console.Clear();
-                    DisplayMenu(player, compt, pos);
+                    DisplayMenu(player, pos);
                     break;
                 case 1:
+                    if (compt == players.Count - 1)
+                    {
+                        compt = 0;
+                    }
+                    else
+                    {
+                        compt++;
+                    }
+                    current = players[compt];
                     break;
                 case 2:
-                    Dashboard(player, compt);
+                    Dashboard(player);
                     break;
                 case 3:
-                    player.loser = true;
-                    break;
-                case 4:
-                    player.loser = true;
+                    Environment.Exit(0);
                     break;
             }
         }
 
+        /*
         public void DisplayPosition(Player player, int compt)
         {
             Console.WriteLine("The square you are currently on is the following:");
             EmptySquare(player, compt);
         }
-
+        
         public void EmptySquare(Player player, int compt)
         {
             if (player.pos == 0)
@@ -232,24 +255,28 @@ namespace projet
             else if (player.pos == 30)
             {
                 Console.WriteLine("\nGo to jail!");
-                player.jail = true;
+                player.pState = new InJail(player);
                 player.pos = 10;
                 Console.WriteLine("You are now in jail.");
                 Console.WriteLine("\nPress any key to go back to the menu.");
                 Console.ReadKey(true);
                 DisplayMenu(player, compt, false);
             }
+            else
+            {
+                Console.WriteLine("\n You are in the case number " + player.pos);
+            }
         }
-
+        */
         
-        public void Dashboard(Player player, int compt)
+        public void Dashboard(Player player)
         {
             Console.Clear();
             Console.WriteLine("Your position is: " + player.pos);
 
             Console.WriteLine("\n\nPress any key to go back to the menu.");
             Console.ReadKey(true);
-            DisplayMenu(player, compt, false);
+            DisplayMenu(player, false);
         }
     }
 }

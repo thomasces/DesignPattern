@@ -13,5 +13,9 @@ namespace projet
         void Move(int[] tot);
 
         void GoToJail();
+
+        void DoubleCheck(int[] dices);
+
+        void DisplayPosition();
     }
 }
