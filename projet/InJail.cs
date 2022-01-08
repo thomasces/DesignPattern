@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace projet
 {
-    class InJail : IState
+    public class InJail : IState
     {
         private Player p;
-        private int timer = 1;
+        public int timer = 1;
 
         public InJail(Player p)
         {
@@ -31,7 +31,8 @@ namespace projet
             dices[2] = total;
             if (timer==3)
             {
-                p.pState = new NotInJail(p);
+                p.notinjail = new NotInJail(p);
+                p.pState = p.notinjail;
             }
             timer++;
             return dices;
@@ -53,7 +54,8 @@ namespace projet
             {
                 Console.WriteLine("But you made a double, Congratulation !");
                 Console.WriteLine("You are now free!");
-                p.PState=new NotInJail(p);
+                p.notinjail = new NotInJail(p);
+                p.pState = p.notinjail;
                 p.pState.Move(dices);
             }
         }

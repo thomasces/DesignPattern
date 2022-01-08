@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace projet
 {
-    class NotInJail : IState
+    public class NotInJail : IState
     {
         private Player p;
-        private int nbDouble;
+        public int nbDouble;
 
         public NotInJail(Player p)
         {
@@ -40,11 +40,11 @@ namespace projet
 
         public void GoToJail()
         {
-                Console.WriteLine("You rolled a double for the third time in a row. You must go to jail.");
-                p.pState = new InJail(p);
-                p.pos = 10;
-                Console.WriteLine("You are now in jail.\n");
-                Console.ReadKey(true);
+            Console.WriteLine("You rolled a double for the third time in a row. You must go to jail.");
+            p.inJail = new InJail(p);
+            p.pState = p.inJail;
+            p.pos = 10;
+            Console.WriteLine("You are now in jail.\n");
         }
 
         public void DisplayPosition()
@@ -77,6 +77,7 @@ namespace projet
                 if(nbDouble==3)
                 {
                     GoToJail();
+                    break;
                 }
                 Console.Clear();
                 Console.WriteLine("\nYou made a double, play again !\n");

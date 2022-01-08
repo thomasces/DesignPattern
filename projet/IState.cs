@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace projet
 {
-    interface IState
+    public interface IState
     {
-        int[] RollDices();
 
         void Move(int[] tot);
 
         void GoToJail();
+
+        int[] RollDices();
 
         void DoubleCheck(int[] dices);
 
