@@ -10,7 +10,6 @@ namespace projet
     {
         public List<Player> players = new List<Player>(); // who is playing
         public Board board_game = new Board();
-        public Player winner;
         public Player current;
         public int compt;
 
