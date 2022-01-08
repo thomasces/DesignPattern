@@ -29,6 +29,11 @@ namespace projet
             dices[0] = dice1;
             dices[1] = dice2;
             dices[2] = total;
+            if (timer==3)
+            {
+                p.pState = new NotInJail(p);
+            }
+            timer++;
             return dices;
         }
 

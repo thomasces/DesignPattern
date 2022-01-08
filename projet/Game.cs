@@ -16,16 +16,6 @@ namespace projet
 
         public Game() { }
 
-        public bool IsWinner()
-        {
-            int j = 0;
-            foreach (Player p in players)
-            {
-                if (p.loser == false) { winner = p; j++; }
-            }
-            if (j == 1) { return true; }
-            else { return false; }
-        }
 
         public void Create()
         {
@@ -61,21 +51,9 @@ namespace projet
             compt = 0;
             Console.Clear();
             Console.WriteLine("The game is starting!");
-            while (!IsWinner())
+            while (true)
             {
                 Console.Clear();
-                /*
-                while (players[compt].loser)
-                {
-                    if (compt == players.Count - 1)
-                    {
-                        compt = 0;
-                    }
-                    else
-                    {
-                        compt++;
-                    }
-                }*/
                 current = players[compt];
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine("\nPlayer " + current.Name + ":");
@@ -93,91 +71,9 @@ namespace projet
 
                 current.pState.DoubleCheck(dices);
                 DisplayMenu(current,true);
-
-
-                /*
-                if (current.PState is InJail)
-                {
-                    Console.WriteLine("\nPress any key to roll the dices !\n");
-                    Console.ReadKey(true);
-                    int[] dices2 = current.PState.RollDices();
-                    Console.ForegroundColor = ConsoleColor.Green;
-
-
-                    if(current.DoubleCheck(dices2))
-                    {
-                        current.Move(dices2);
-                        current.jail = false;
-                        current.nb_jail = 0;
-                        Console.WriteLine("\nCurrent position :" + current.pos + "\n");
-                        Console.ForegroundColor = ConsoleColor.White;
-                        //Console.ReadKey(true);
-                        //DisplayMenu(current, compt, true);
-                    }
-                    else if (current.nb_jail != 3)
-                    { 
-                        current.nb_jail = current.nb_jail + 1;
-                        Console.WriteLine("You stay in jail!");
-                        Console.ReadKey(true);
-                        DisplayMenu(current, compt, true);
-                    }      
-                    else
-                    {
-                        current.Move(dices2);
-                        current.jail = false;
-                        current.nb_jail = 0;
-                        Console.WriteLine("\nCurrent position :" + current.pos + "\n");
-                        Console.ForegroundColor = ConsoleColor.White;
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("\nPress any key to roll the dices !\n");
-                    Console.ReadKey(true);
-                    int[] dices = current.Dice();
-                    int nbdouble = 0;
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    current.Move(dices);
-                    Console.WriteLine("\nCurrent position :" + current.pos + "\n");
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.ReadKey(true);
-                    DisplayMenu(current, compt, true);
-
-                    while (current.DoubleCheck(dices))
-                    {
-                        nbdouble++;
-                        if (nbdouble == 3)
-                        {
-                            Console.WriteLine("You rolled a double for the third time in a row. You must go to jail.");
-                            current.jail = true;
-                            current.pos = 10;
-                            Console.WriteLine("You are now in jail.\n");
-                            Console.ReadKey(true);
-                            break;
-                        }
-                        Console.WriteLine("\nWow, you got a double, you can roll the dices again !");
-                        Console.WriteLine("\nPress any key to roll the dices !\n");
-                        Console.ReadKey(true);
-                        dices = current.Dice();
-                        current.Move(dices);
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("\nCurrent position :" + current.pos + "\n");
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.ReadKey(true);
-                        DisplayMenu(current, compt, true);
-                    }
-                    if (compt == players.Count - 1)
-                    {
-                        compt = 0;
-                    }
-                    else
-                    {
-                        compt++;
-                    }
-                }
-                */
+                Console.ReadKey(true);
             }            
-            Console.ReadKey(true);
+            
         }
 
         public void DisplayMenu(Player player, bool pos)
@@ -234,40 +130,6 @@ namespace projet
                     break;
             }
         }
-
-        /*
-        public void DisplayPosition(Player player, int compt)
-        {
-            Console.WriteLine("The square you are currently on is the following:");
-            EmptySquare(player, compt);
-        }
-        
-        public void EmptySquare(Player player, int compt)
-        {
-            if (player.pos == 0)
-            {
-                Console.WriteLine("\nStart square!");
-            }
-            else if (player.pos == 10)
-            {
-                Console.WriteLine("\nJail square! But don't worry you are only visiting.");
-            }
-            else if (player.pos == 30)
-            {
-                Console.WriteLine("\nGo to jail!");
-                player.pState = new InJail(player);
-                player.pos = 10;
-                Console.WriteLine("You are now in jail.");
-                Console.WriteLine("\nPress any key to go back to the menu.");
-                Console.ReadKey(true);
-                DisplayMenu(player, compt, false);
-            }
-            else
-            {
-                Console.WriteLine("\n You are in the case number " + player.pos);
-            }
-        }
-        */
         
         public void Dashboard(Player player)
         {
